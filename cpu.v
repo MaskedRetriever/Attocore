@@ -13,12 +13,16 @@ module attocore(clock, reset, data_dir, data_bus, address_bus);
  wire [7:0]alu_a;
  wire [7:0]alu_b;
  wire [7:0]alu_y;
+ wire [7:0]alu_c_out;
  assign addr={regfile[1],regfile[0]};
  assign pc={regfile[3],regfile[2]};
  assign ir=regfile[4];
  assign alu_a=regfile[5];
  assign alu_b=regfile[6];
  assign alu_y=regfile[7];
+
+ //ALU
+ atto_alu a1(regfile[4][3:0],regfile[5],regfile[6],alu_c_out);
 
  //State Machine
  reg [4:0]SystemState;
@@ -98,6 +102,7 @@ module attocore(clock, reset, data_dir, data_bus, address_bus);
          2:next_SystemState=0;
          3:
          begin
+             regfile[7]=alu_c_out;
              next_SystemState=0;
          end
          4:
