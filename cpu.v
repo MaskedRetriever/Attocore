@@ -120,8 +120,16 @@ module attocore(clock, reset, data_dir, data_bus, address_bus);
          end
          6:next_SystemState=0;
          7:next_SystemState=0;
-         8:next_SystemState=0;
-         9:next_SystemState=0;
+         8:
+         begin
+             next_SystemState=9;
+             {regfile[3],regfile[2]}={regfile[3],regfile[2]}+1;//Increment PC
+         end
+         9:
+         begin
+             next_SystemState=0;
+             regfile[regfile[4][3:0]]=regfile[regfile[4][7:5]];
+         end
 
      endcase
  end
