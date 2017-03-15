@@ -11,8 +11,6 @@ I started the Attocore project because the soft processors available on certain 
 - 16-bit address space
 - 16 registers (8 of which are special-purpose)
 - 1 laughably-underpowered ALU
-
-
 - No Cache
 - No Stack
 - No Protected Mode
@@ -20,6 +18,7 @@ I started the Attocore project because the soft processors available on certain 
 - No Floating Point
 - No Multiply Operation
 - No Branch Pointer
+- No Interrupts
 - Basically No Advanced Features Of Any Kind Honestly
 
 
@@ -36,24 +35,24 @@ I started the Attocore project because the soft processors available on certain 
 
 The Attocore has 6 instructions:
 
-No Op: Do nothing.  
-Binary: 00000000
+**No Op:** Do nothing.  
+**Binary:** 00000000
 
-Jump: Program Jump.  Note that the address for the jump comes from ADDR.  
-Binary: 00100000
+**Jump:** Program Jump.  Note that the address for the jump comes from ADDR.  
+**Binary:** 00100000
 
-Arithmatic: Calculation on ALU.  Just clocks sets ALU operation select and clocks ALU Y.  
-Binary: 010[op], op = 5-bit operation select
+**Arithmatic:** Calculation on ALU.  Just clocks sets ALU operation select and clocks ALU Y.  
+**Binary:** 010[op], op = 5-bit operation select
 
-Value Set: Store a specified value in a register.  Note that this operation takes two words.  
-Binary: 0110[reg], reg = 4-bit register select, including special purpose registers.  
-Binary: [word], word = the 8-bit word to be stored.
+**Value Set:** Store a specified value in a register.  Note that this operation takes two words.  
+**Binary:** 0110[reg], reg = 4-bit register select, including special purpose registers.  
+**Binary:** [word], word = the 8-bit word to be stored.
 
-Read: Read a value from memory to a specified register.  Note that the address for read comes from ADDR.  
-Binary: 1000[reg], reg = 4-bit register select, including special purpose registers.
+**Read:** Read a value from memory to a specified register.  Note that the address for read comes from ADDR.  
+**Binary:** 1000[reg], reg = 4-bit register select, including special purpose registers.
 
-Write: Write a value to memory from a specified register.  Note that the address for write comes from ADDR.  
-Binary: 1010[reg], reg = 4-bit register select, including special purpose registers.
+**Write:** Write a value to memory from a specified register.  Note that the address for write comes from ADDR.  
+**Binary:** 1010[reg], reg = 4-bit register select, including special purpose registers.
 
 
 
@@ -61,4 +60,4 @@ Binary: 1010[reg], reg = 4-bit register select, including special purpose regist
 
 The attocore proper is contained entirely in cpu.v, but for usability it comes with a ROM, a RAM, an address selector, a test bench, and a sample program.  Other features planned will not be mentioned for fear of not getting them done.
 
-The Attocore Will Return, But You Have To Push All Zeroes Into ADDR First.
+__The Attocore Will Return, But You Have To Push All Zeroes Into ADDR First.__
