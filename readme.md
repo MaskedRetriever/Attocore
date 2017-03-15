@@ -1,11 +1,11 @@
-#The Attocore Tiny CPU
+# The Attocore Tiny CPU
 
 The Attocore is definitely not the smallest computer possible, as has been proven by Alan Turing.  However, it is very, very small compared to any modern computer and actually a fair bit smaller than many of the classic CPUs such as the Z80.  The Attocore doesn't have "a cache" or "literally any concept of a protected mode" or even "multiply operations".  The Attocore is minimalist enough that it fits on a few pages of Verilog code, thus making it a great candidate for learning the basics of very low-level programming.
 
 I started the Attocore project because the soft processors available on certain FPGA systems seemed to have an awful lot of strings attached for something that theoretically is an easy drop-in of some chunk of verilog code, which then talks to some 0's and 1's.  In short, the Attocore is what I wish my students had as their first soft processor.  (Or rather, the best, cleaned-up, deeply-tested, works-every-time version of it is.)
 
 
-##Features:
+## Features:
 8-bit instructions and data words
 16-bit address space
 16 registers (8 of which are special-purpose)
@@ -21,7 +21,7 @@ No Branch Pointer
 Basically No Advanced Features Of Any Kind Honestly
 
 
-##Special-Purpose Registers:
+## Special-Purpose Registers:
 ADDR: r0 and r1 are a combined register that stores 16-bit addresses. r0 is LSB, r1 MSB.
 PC: r2 and r3 make up the program counter, which also is 16 bits.
 IR: r4 stores the current active instructions
@@ -30,7 +30,7 @@ ALU B: ALU right operand
 ALU Y: ALU output
 
 
-##Instruction Set:
+## Instruction Set:
 The Attocore has 6 instructions:
 
 No Op: Do nothing.
@@ -53,7 +53,7 @@ Write: Write a value to memory from a specified register.  Note that the address
 Binary: 1010[reg], reg = 4-bit register select, including special purpose registers.
 
 
-##Add-Ons:
+## Add-Ons:
 The attocore proper is contained entirely in cpu.v, but for usability it comes with a ROM, a RAM, an address selector, a test bench, and a sample program.  Other features planned will not be mentioned for fear of not getting them done.
 
 The Attocore Will Return, But You Have To Push All Zeroes Into ADDR First.
