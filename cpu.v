@@ -94,8 +94,19 @@ module attocore(clock, reset, data_dir, data_bus, address_bus);
                  end
                  2:next_SystemState=3;//Arithmatic
                  3:next_SystemState=4;//Value Set
-                 4:next_SystemState=6;//Read
-                 5:next_SystemState=7;//Write
+                 4://read
+                 begin
+                     next_SystemState=6;
+                     r_address_bus={regfile[1],regfile[0]};
+                     r_data_dir=1;
+                 end
+                 5://write
+                 begin
+                     next_SystemState=7;
+                     r_address_bus={regfile[1],regfile[0]};
+                     r_data_dir=0;
+                     r_data_bus=regfile[regfile[4][3:0]];
+                 end
                  6:next_SystemState=8;//Copy
              endcase
          end
@@ -118,17 +129,28 @@ module attocore(clock, reset, data_dir, data_bus, address_bus);
              regfile[regfile[4][3:0]]=data_bus;
              next_SystemState=0;
          end
-         6:next_SystemState=0;
-         7:next_SystemState=0;
+         6:
+         begin
+             next_SystemState=0;
+             regfile[regfile[4][3:0]]=data_bus;
+         end
+         7:
+         begin
+             r_data_dir=1;
+             next_SystemState=0;
+         end
          8:
          begin
+             r_data_bus=8'bz;
+             r_address_bus={regfile[3],regfile[2]};
+             r_data_dir=1;
              next_SystemState=9;
-             {regfile[3],regfile[2]}={regfile[3],regfile[2]}+1;//Increment PC
          end
          9:
          begin
              next_SystemState=0;
-             regfile[regfile[4][3:0]]=regfile[regfile[4][7:5]];
+             {regfile[3],regfile[2]}={regfile[3],regfile[2]}+1;//Increment PC
+             regfile[data_bus[7:5]]=regfile[data_bus[3:0]];
          end
 
      endcase

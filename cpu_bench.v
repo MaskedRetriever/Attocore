@@ -4,9 +4,12 @@ module bench;
  reg [7:0]data_in;
  wire [15:0]address_bus;
  wire [7:0]data_bus;
+ wire [63:0]memselect;
 
  attocore a1(clock, reset, data_dir, data_bus, address_bus);
- rom r1(address_bus[7:0],data_bus,data_dir);
+ sel64 s1(address_bus[15:10],memselect);
+ rom r1(address_bus[9:0],data_bus,memselect[0]);
+ ram m1(address_bus[9:0],data_bus,memselect[1],~data_dir,clock);
 
  initial begin
      $dumpvars(0,bench);
@@ -15,7 +18,7 @@ module bench;
      data_in=0;
      #5;
      reset=1;
-     #800;
+     #1000;
      $finish;
  end
 
