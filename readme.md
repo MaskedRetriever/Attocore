@@ -7,82 +7,52 @@ I started the Attocore project because the soft processors available on certain 
 
 ## Features:
 
-8-bit instructions and data words
-
-16-bit address space
-
-16 registers (8 of which are special-purpose)
-
-1 laughably-underpowered ALU
+- 8-bit instructions and data words
+- 16-bit address space
+- 16 registers (8 of which are special-purpose)
+- 1 laughably-underpowered ALU
 
 
-No Cache
-
-No Stack
-
-No Protected Mode
-
-No MMU
-
-No Floating Point
-
-No Multiply Operation
-
-No Branch Pointer
-
-Basically No Advanced Features Of Any Kind Honestly
+- No Cache
+- No Stack
+- No Protected Mode
+- No MMU
+- No Floating Point
+- No Multiply Operation
+- No Branch Pointer
+- Basically No Advanced Features Of Any Kind Honestly
 
 
 ## Special-Purpose Registers:
-
-ADDR: r0 and r1 are a combined register that stores 16-bit addresses. r0 is LSB, r1 MSB.
-
-PC: r2 and r3 make up the program counter, which also is 16 bits.
-
-IR: r4 stores the current active instructions
-
-ALU A: ALU left operand
-
-ALU B: ALU right operand
-
-ALU Y: ALU output
+- ADDR: r0 and r1 are a combined register that stores 16-bit addresses. r0 is LSB, r1 MSB.
+- PC: r2 and r3 make up the program counter, which also is 16 bits.
+- IR: r4 stores the current active instructions
+- ALU A: ALU left operand
+- ALU B: ALU right operand
+- ALU Y: ALU output
 
 
 ## Instruction Set:
 
 The Attocore has 6 instructions:
 
-
-No Op: Do nothing.
-
+No Op: Do nothing.  
 Binary: 00000000
 
-
-Jump: Program Jump.  Note that the address for the jump comes from ADDR.
-
+Jump: Program Jump.  Note that the address for the jump comes from ADDR.  
 Binary: 00100000
 
-
-Arithmatic: Calculation on ALU.  Just clocks sets ALU operation select and clocks ALU Y.
-
+Arithmatic: Calculation on ALU.  Just clocks sets ALU operation select and clocks ALU Y.  
 Binary: 010[op], op = 5-bit operation select
 
-
-Value Set: Store a specified value in a register.  Note that this operation takes two words.
-
-Binary: 0110[reg], reg = 4-bit register select, including special purpose registers.
-
+Value Set: Store a specified value in a register.  Note that this operation takes two words.  
+Binary: 0110[reg], reg = 4-bit register select, including special purpose registers.  
 Binary: [word], word = the 8-bit word to be stored.
 
-
-
-Read: Read a value from memory to a specified register.  Note that the address for read comes from ADDR.
-
+Read: Read a value from memory to a specified register.  Note that the address for read comes from ADDR.  
 Binary: 1000[reg], reg = 4-bit register select, including special purpose registers.
 
-
-Write: Write a value to memory from a specified register.  Note that the address for write comes from ADDR.
-
+Write: Write a value to memory from a specified register.  Note that the address for write comes from ADDR.  
 Binary: 1010[reg], reg = 4-bit register select, including special purpose registers.
 
 
