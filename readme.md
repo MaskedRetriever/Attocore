@@ -54,7 +54,8 @@ The Attocore has 6 instructions:
 **Write:** Write a value to memory from a specified register.  Note that the address for write comes from ADDR.  
 **Binary:** 1010[reg], reg = 4-bit register select, including special purpose registers.
 
-
+**Copy:** Overwrite one register with another register's contents.
+**Binary:** (src reg)(dest reg), two 4-bit register selects, including special purpose registers.
 
 ## Add-Ons:
 
