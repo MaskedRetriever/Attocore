@@ -14,12 +14,28 @@ module attocore(clock, reset, data_dir, data_bus, address_bus);
  wire [7:0]alu_b;
  wire [7:0]alu_y;
  wire [7:0]alu_c_out;
+ wire [7:0]r8;
+ wire [7:0]r9;
+ wire [7:0]r10;
+ wire [7:0]r11;
+ wire [7:0]r12;
+ wire [7:0]r13;
+ wire [7:0]r14;
+ wire [7:0]r15;
  assign addr={regfile[1],regfile[0]};
  assign pc={regfile[3],regfile[2]};
  assign ir=regfile[4];
  assign alu_a=regfile[5];
  assign alu_b=regfile[6];
  assign alu_y=regfile[7];
+ assign r8=regfile[8];
+ assign r9=regfile[9];
+ assign r10=regfile[10];
+ assign r11=regfile[11];
+ assign r12=regfile[12];
+ assign r13=regfile[13];
+ assign r14=regfile[14];
+ assign r15=regfile[15];
 
  //ALU
  atto_alu a1(regfile[4][3:0],regfile[5],regfile[6],alu_c_out);
@@ -138,8 +154,7 @@ module attocore(clock, reset, data_dir, data_bus, address_bus);
          end
          6:
          begin
-             next_SystemState=0;
-             regfile[regfile[4][3:0]]=data_bus;
+             next_SystemState=10;
          end
          7:
          begin
@@ -157,7 +172,12 @@ module attocore(clock, reset, data_dir, data_bus, address_bus);
          begin
              next_SystemState=0;
              {regfile[3],regfile[2]}={regfile[3],regfile[2]}+1;//Increment PC
-             regfile[data_bus[7:4]]=regfile[data_bus[3:0]];
+             regfile[data_bus[3:0]]=regfile[data_bus[7:4]];
+         end
+         10:
+         begin
+             next_SystemState=0;
+             regfile[regfile[4][3:0]]=data_bus;
          end
 
      endcase

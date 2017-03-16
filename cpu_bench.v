@@ -18,7 +18,7 @@ module bench;
      data_in=0;
      #5;
      reset=1;
-     #1000;
+     #7000;
      $finish;
  end
 
