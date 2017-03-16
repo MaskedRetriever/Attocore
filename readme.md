@@ -39,7 +39,7 @@ The Attocore has 6 instructions:
 **Binary:** 00000000
 
 **Jump:** Program Jump.  Note that the address for the jump comes from ADDR.  
-**Binary:** 00100000
+**Binary:** 0010000x, x = conditional jump, only if ALU lsb is zero
 
 **Arithmatic:** Calculation on ALU.  Just clocks sets ALU operation select and clocks ALU Y.  
 **Binary:** 010[op], op = 5-bit operation select

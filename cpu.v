@@ -88,9 +88,16 @@ module attocore(clock, reset, data_dir, data_bus, address_bus);
                  end
                  1://jump
                  begin
-                     regfile[2]=regfile[0];
-                     regfile[3]=regfile[1];//copy addr to pc
-                     next_SystemState=2;
+			 if ((regfile[4][0])&&(~regfile[7][0]))
+			 begin
+				 next_SystemState=0;
+			 end
+			 else
+			 begin
+				 regfile[2]=regfile[0];
+				 regfile[3]=regfile[1];//copy addr to pc
+				 next_SystemState=2;
+			 end
                  end
                  2:next_SystemState=3;//Arithmatic
                  3:next_SystemState=4;//Value Set
@@ -150,7 +157,7 @@ module attocore(clock, reset, data_dir, data_bus, address_bus);
          begin
              next_SystemState=0;
              {regfile[3],regfile[2]}={regfile[3],regfile[2]}+1;//Increment PC
-             regfile[data_bus[7:5]]=regfile[data_bus[3:0]];
+             regfile[data_bus[7:4]]=regfile[data_bus[3:0]];
          end
 
      endcase
